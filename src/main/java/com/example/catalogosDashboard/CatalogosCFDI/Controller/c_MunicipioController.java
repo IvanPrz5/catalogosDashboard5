@@ -19,6 +19,8 @@ import com.example.catalogosDashboard.CatalogosCFDI.Entity.c_Municipio;
 import com.example.catalogosDashboard.CatalogosCFDI.Repository.c_MunicipioRepository;
 import com.example.catalogosDashboard.CatalogosCFDI.Service.c_MunicipioService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,13 @@ public class c_MunicipioController {
     public List<c_Municipio> getAllData() {
         return (List<c_Municipio>) municipioRepository.findAll();
     } */
+
+    @Transactional
+    @GetMapping("/relation/{idEstado}/{status}")
+    public List<c_Municipio> getDataByEstadoAndStatus(@PathVariable("idEstado") String idEstado, @PathVariable("status") Boolean status){
+        return (List<c_Municipio>) cMunicipioService.getByEstadoAndStatus(idEstado, status);
+    }
+
 
     @GetMapping(value = "/{id}")
     public Optional<c_Municipio> data(@PathVariable("id") String id) {

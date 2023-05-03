@@ -33,6 +33,11 @@ public class EmpleadoController {
     @Autowired
     EmpleadoService empleadoService;
 
+    @GetMapping("/empleado/{id}")
+    public Optional<EmpleadoEntity> getEmpleadoById(@PathVariable("id") Long idEmpleado){
+        return (Optional<EmpleadoEntity>) empleadoRepository.findById(idEmpleado);
+    }    
+
     @GetMapping("/sort/{status}")
     public List<EmpleadoEntity> getDataByStatus(@PathVariable("status") Boolean status, Sort sort) {
         return (List<EmpleadoEntity>) empleadoService.getAllEmpleadosByStatus(status, sort);

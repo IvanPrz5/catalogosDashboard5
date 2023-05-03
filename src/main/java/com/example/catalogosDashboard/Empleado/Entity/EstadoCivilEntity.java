@@ -1,14 +1,10 @@
 package com.example.catalogosDashboard.Empleado.Entity;
 
-import com.example.catalogosDashboard.CatalogosCFDI.Entity.c_Estado;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,8 +23,10 @@ public class EstadoCivilEntity {
     private Long id;
     @Column
     private String descripcion;
+    @Column
+    private Boolean status;
 
-    @ManyToOne
+    /* @ManyToOne
     @JoinColumn(name = "idEstado")
-    private c_Estado estadoEntity;
+    private c_Estado estadoEntity; */
 }

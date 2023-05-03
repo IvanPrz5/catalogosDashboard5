@@ -19,6 +19,8 @@ import com.example.catalogosDashboard.CatalogosCFDI.Entity.c_Localidad;
 import com.example.catalogosDashboard.CatalogosCFDI.Repository.c_LocalidadRepository;
 import com.example.catalogosDashboard.CatalogosCFDI.Service.c_LocalidadService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -40,6 +42,12 @@ public class c_LocalidadController {
     @GetMapping(value = "/{id}")
     public Optional<c_Localidad> data(@PathVariable("id") String id) {
         return cLocalidadRepository.findById(id);
+    }
+
+    @Transactional
+    @GetMapping("/relation/{idEstado}/{status}")
+    public List<c_Localidad> getDataByEstadoAndStatus(@PathVariable("idEstado") String idEstado, @PathVariable("status") Boolean status){
+        return (List<c_Localidad>) cLocalidadService.getByEstadoAndStatus(idEstado, status);
     }
     
     @GetMapping("/sort/{status}")

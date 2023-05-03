@@ -6,6 +6,11 @@ import com.example.catalogosDashboard.CatalogosCFDI.Entity.c_Asentamientos;
 import com.example.catalogosDashboard.CatalogosCFDI.Entity.c_Estado;
 import com.example.catalogosDashboard.CatalogosCFDI.Entity.c_Localidad;
 import com.example.catalogosDashboard.CatalogosCFDI.Entity.c_Municipio;
+import com.example.catalogosDashboard.CatalogosNomina.Entity.c_BancoEntity;
+import com.example.catalogosDashboard.CatalogosNomina.Entity.c_RiesgoPuestoEntity;
+import com.example.catalogosDashboard.CatalogosNomina.Entity.c_TipoContratoEntity;
+import com.example.catalogosDashboard.CatalogosNomina.Entity.c_TipoJornadaEntity;
+import com.example.catalogosDashboard.CatalogosNomina.Entity.c_TipoRegimenEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -20,6 +25,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 @Entity
@@ -33,33 +39,30 @@ public class EmpleadoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
+    @NonNull
     private String nombre;
     @Column
+    @NonNull
     private String paterno;
     @Column
+    @NonNull
     private String materno;
     @Column 
+    @NonNull
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
     @Column
+    @NonNull
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaContratacion;
     @Column
-    private Long satTipoContrato;
-    @Column
+    @NonNull
     private Double salarioDiario;
     @Column
+    @NonNull
     private Double salarioDiarioIntegrado;
     @Column
-    private Long satTipoRegimen;
-    @Column
-    private Long satTipoJornada;
-    @Column
-    private String satBanco;
-    @Column
     private Long cuentaBanco;
-    @Column
-    private Long satRiesgoPuesto;
     @Column
     private Long numeroSeguro;
     @Column
@@ -74,10 +77,28 @@ public class EmpleadoEntity {
     private String calle;
     @Column
     private String numeroExt;
-    /* @Column
-    private Long numeroInfonavit2; */
     @Column
     private Boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "idTipoContrato")
+    private c_TipoContratoEntity tipoContratoEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "idTipoRegimen")
+    private c_TipoRegimenEntity tipoRegimenEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "idTipoJornada")
+    private c_TipoJornadaEntity tipoJornadaEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "idBanco")
+    private c_BancoEntity bancoEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "idRiesgoPuesto")
+    private c_RiesgoPuestoEntity riesgoPuestoEntity;
 
     @ManyToOne
     @JoinColumn(name = "idSubEmpresa")
