@@ -34,5 +34,5 @@ public class SubEmpresasEntity {
 
     @ManyToOne
     @JoinColumn(name = "idEmpresa")
-    private EmpresasEntity EmpresasEntity;
+    private EmpresasEntity idEmpresa;
 }

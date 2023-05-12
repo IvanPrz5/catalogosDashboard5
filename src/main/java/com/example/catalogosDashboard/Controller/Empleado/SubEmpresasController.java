@@ -39,7 +39,7 @@ public class SubEmpresasController {
 
     @PostMapping("/agregar")
     public ResponseEntity<SubEmpresasEntity> createRegistro(@RequestBody SubEmpresasEntity var) {
-        try {
+        try { 
             SubEmpresasEntity subEmpresas = subEmpresasRepository.save(var);
             return new ResponseEntity<>(subEmpresas, HttpStatus.CREATED);
         } catch (Exception e) {
