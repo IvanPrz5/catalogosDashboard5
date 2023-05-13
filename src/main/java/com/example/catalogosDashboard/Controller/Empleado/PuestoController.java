@@ -18,6 +18,8 @@ import com.example.catalogosDashboard.Entity.Empleado.PuestoEntity;
 import com.example.catalogosDashboard.Repository.Empleado.PuestoRepository;
 import com.example.catalogosDashboard.Service.Empleado.PuestoService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 

@@ -18,6 +18,8 @@ import com.example.catalogosDashboard.Entity.Empleado.SubEmpresasEntity;
 import com.example.catalogosDashboard.Repository.Empleado.SubEmpresasRepository;
 import com.example.catalogosDashboard.Service.Empleado.SubEmpresasService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -32,9 +34,10 @@ public class SubEmpresasController {
     @Autowired
     SubEmpresasService subEmpresasService;
 
-    @GetMapping("/sort/{status}")
-    public List<SubEmpresasEntity> getDataByStatus(@PathVariable("status") Boolean status, Sort sort){
-        return (List<SubEmpresasEntity>) subEmpresasService.getAllSubEmpresasByStatus(status, sort);
+    @Transactional
+    @GetMapping("/sort/{idEmpresa}/{status}")
+    public List<SubEmpresasEntity> getDataByIdEmpresaAndStatus(@PathVariable("idEmpresa") Long idEmpresa, @PathVariable("status") Boolean status, Sort sort){
+        return (List<SubEmpresasEntity>) subEmpresasService.getAllSubEmpresasByIdEmpresaAndStatus(idEmpresa, status, sort);
     }
 
     @PostMapping("/agregar")
