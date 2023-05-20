@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,21 +21,24 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "SubEmpresas")
-public class SubEmpresasEntity {
+@Table(name = "SubEmpresasUsers")
+public class SubEmpresasUsersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
-    private String alias;
-    @Column
-    private String urlPac;
-    @Column
-    private String descripcion;
-    @Column
-    private Boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "idUsuario")
+    private UsuariosEntity idUsuario;
 
     @ManyToOne
     @JoinColumn(name = "idEmpresa")
     private EmpresasEntity idEmpresa;
+
+    @ManyToOne
+    @JoinColumn(name = "idSubEmpresa")
+    private SubEmpresasEntity idSubEmpresa;
+
+    @Column
+    private Boolean status;
 }

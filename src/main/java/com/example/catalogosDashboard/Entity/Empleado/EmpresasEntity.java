@@ -1,6 +1,7 @@
 package com.example.catalogosDashboard.Entity.Empleado;
 
 import com.example.catalogosDashboard.Entity.CFDI.c_RegimenFiscal;
+import com.example.catalogosDashboard.Entity.Usuarios.UsuariosEntity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -45,7 +46,7 @@ public class EmpresasEntity {
     private String curp;
     @Column
     private Boolean status;
-    
+
     @ManyToOne
     @JoinColumn(name = "idRegimenFiscal")
     private c_RegimenFiscal idRegimenFiscal;

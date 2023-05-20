@@ -20,16 +20,21 @@ import java.util.Optional;
 
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, })
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 public class UsuariosController {
     
     @Autowired
     UsuariosRepository usuariosRepository;
 
-    @GetMapping(value = "information/{email}")
+    @GetMapping(value = "/information/{email}")
     public Optional <UsuariosEntity> getDataByIdUsuario(@PathVariable("email") String email){
         return usuariosRepository.findOneByEmail(email);
     }
+
+    /* @GetMapping("/relationed/{email}/{idSubEmpresa}")
+    public List<UsuariosEntity> getDataByStatus(@PathVariable("email") String email, Long idSubEmpresa){
+        return (List<PuestoEntity>) puestoService.getAllPuestoByStatus(email, idSubEmpresa);
+    } */    
 
     @PutMapping("updateAccount/{id}")
     public ResponseEntity<UsuariosEntity> updatePerfil(@PathVariable("id") Integer idUsuario, @RequestBody UsuariosEntity usuarioParam){

@@ -39,7 +39,7 @@ public class AuthController {
                 String token = TokenUtils.createToken(userDetails.getNombre() + " " + userDetails.getUser().getApPaterno() + " " + 
                 userDetails.getUser().getApMaterno(), userDetails.getUsername());
                 // String token = TokenUtils.createToken(userDetails.getNombre(), userDetails.getUsername());
-
+                
                 HashMap<String, Object> response = new HashMap<>();
                 response.put("Authorization", "Bearer " + token);
 
