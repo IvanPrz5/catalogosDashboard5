@@ -19,6 +19,8 @@ import com.example.catalogosDashboard.Entity.CFDI.c_Estado;
 import com.example.catalogosDashboard.Repository.CFDI.c_EstadoRepository;
 import com.example.catalogosDashboard.Service.CFDI.c_EstadoService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -33,19 +35,20 @@ public class c_EstadoController {
     @Autowired
     private c_EstadoService cEstadoService;
 
-    /* @GetMapping
-    public List<c_Estado> getAllData() {
-        return (List<c_Estado>) estadoRepository.findAll();
-    } */
-
-    @GetMapping(value = "/{id}")
+    /* @GetMapping(value = "/{id}")
     public Optional<c_Estado> data(@PathVariable("id") String id) {
         return cEstadoRepository.findById(id);
-    }
+    } */
 
     @GetMapping("/sort/{status}")
     public List<c_Estado> getDataByStatus(@PathVariable("status") Boolean status, Sort sort) {
         return (List<c_Estado>) cEstadoService.getAllEstadoByStatus(status, sort);
+    }
+
+    @Transactional
+    @GetMapping("/sort/{id}/{status}")
+    public List<c_Estado> byIdPaisAndStatus(@PathVariable("id") String id, @PathVariable("status") Boolean status, Sort sort) {
+        return (List<c_Estado>) cEstadoService.getByIdPaisAndStatus(id, status, sort);
     }
 
     @PostMapping("/agregar")

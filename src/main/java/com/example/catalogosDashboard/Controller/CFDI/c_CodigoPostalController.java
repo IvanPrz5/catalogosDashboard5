@@ -19,6 +19,8 @@ import com.example.catalogosDashboard.Entity.CFDI.c_CodigoPostal;
 import com.example.catalogosDashboard.Repository.CFDI.c_CodigoPostalRepository;
 import com.example.catalogosDashboard.Service.CFDI.c_CodigoPostalService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -32,14 +34,15 @@ public class c_CodigoPostalController {
     @Autowired
     private c_CodigoPostalService cCodigoPostalService;
 
-    /* @GetMapping
-    public List<c_CodigoPostal> getAllData() {
-        return (List<c_CodigoPostal>) codigoPostalRepository.findAll();
-    } */
+    @GetMapping("/byId/{id}/{status}")
+    public Optional<c_CodigoPostal> byIdAndStatus(@PathVariable("id") String id, @PathVariable("status") Boolean status, Sort sort){
+        return (Optional<c_CodigoPostal>) cCodigoPostalService.getByIdAndStatus(id, status, sort);
+    }
 
-    @GetMapping(value = "/{id}")
-    public Optional<c_CodigoPostal> data(@PathVariable("id") String id) {
-        return cCodigoPostalRepository.findById(id);
+    @Transactional
+    @GetMapping("/combo/sort/{status}/{id}")
+    public List<c_CodigoPostal> byIdEstadoAndStatus(@PathVariable("id") String id, @PathVariable("status") Boolean status, Sort sort ){
+        return (List<c_CodigoPostal>) cCodigoPostalService.getByIdEstadoAndStatus(id, status, sort);
     }
 
     @GetMapping("/sort/{status}")

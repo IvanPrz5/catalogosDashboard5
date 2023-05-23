@@ -32,7 +32,7 @@ public class c_Estado {
     
     @ManyToOne
     @JoinColumn(name="idPais")
-    private c_Pais pais;
+    private c_Pais idPais;
 
     /* @OneToMany(mappedBy = "cLocalidad")
     private List<c_Localidad> localidades;

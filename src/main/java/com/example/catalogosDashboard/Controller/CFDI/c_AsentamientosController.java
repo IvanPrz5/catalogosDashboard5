@@ -23,6 +23,8 @@ import com.example.catalogosDashboard.Entity.CFDI.c_Asentamientos;
 import com.example.catalogosDashboard.Repository.CFDI.c_AsentamientosRepository;
 import com.example.catalogosDashboard.Service.CFDI.c_AsentamientosService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -37,15 +39,15 @@ public class c_AsentamientosController {
     @Autowired
     private c_AsentamientosService asentamientosService;
 
-    /*
-     * @GetMapping
-     * public List<c_Asentamientos> getAllData() {
-     * return (List<c_Asentamientos>) asentamientosRepository.findAll();
-     * }
-     */
     @GetMapping(value = "/{id}")
     public Optional<c_Asentamientos> data(@PathVariable("id") String id) {
         return asentamientosRepository.findById(id);
+    }
+
+    @Transactional
+    @GetMapping("/byIdCodPostal/{id}/{status}")
+    public List<c_Asentamientos> byIdCodigoPostalAndStatus(@PathVariable("id") String id, @PathVariable("status") Boolean status, Sort sort){
+        return (List<c_Asentamientos>) asentamientosService.getByIdCodigoPostalAndStatus(id, status, sort);
     }
 
     @GetMapping("/sort")
@@ -76,7 +78,7 @@ public class c_AsentamientosController {
             asentamientos.setCod(cAsentamientos.getCod());
             asentamientos.setNombre(cAsentamientos.getNombre());
             asentamientos.setTipo(cAsentamientos.getTipo());
-            asentamientos.setCodigoPostal(cAsentamientos.getCodigoPostal());
+            asentamientos.setIdCodigoPostal(cAsentamientos.getIdCodigoPostal());
             asentamientos.setStatus(cAsentamientos.getStatus());
             return new ResponseEntity<>(asentamientosRepository.save(asentamientos), HttpStatus.OK);
         } else {

@@ -32,5 +32,5 @@ public class c_Asentamientos {
     
     @ManyToOne
     @JoinColumn(name="idCodigoPostal")
-    private c_CodigoPostal codigoPostal;
+    private c_CodigoPostal idCodigoPostal;
 }

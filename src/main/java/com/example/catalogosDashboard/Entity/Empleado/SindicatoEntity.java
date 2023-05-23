@@ -31,5 +31,5 @@ public class SindicatoEntity {
 
     @ManyToOne
     @JoinColumn(name = "idSubEmpresa")
-    private SubEmpresasEntity subEmpresasEntity;
+    private SubEmpresasEntity idSubEmpresa;
 }

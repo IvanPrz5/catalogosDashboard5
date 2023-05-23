@@ -33,5 +33,5 @@ public class DepartamentoEntity {
 
     @ManyToOne
     @JoinColumn(name = "idSubEmpresa")
-    private SubEmpresasEntity subEmpresasEntity;
+    private SubEmpresasEntity idSubEmpresa;
 }

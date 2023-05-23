@@ -18,13 +18,15 @@ import com.example.catalogosDashboard.Entity.Empleado.EmpleadoEntity;
 import com.example.catalogosDashboard.Repository.Empleado.EmpleadoRepository;
 import com.example.catalogosDashboard.Service.Empleado.EmpleadoService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
 @CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,
         RequestMethod.PUT, })
 @RestController
-@RequestMapping("auth/Empleados")
+@RequestMapping("auth/Empleado")
 public class EmpleadoController {
 
     @Autowired
@@ -34,13 +36,19 @@ public class EmpleadoController {
     EmpleadoService empleadoService;
 
     @GetMapping("/empleado/{id}")
-    public Optional<EmpleadoEntity> getEmpleadoById(@PathVariable("id") Long idEmpleado){
+    public Optional<EmpleadoEntity> getEmpleadoById(@PathVariable("id") Long idEmpleado) {
         return (Optional<EmpleadoEntity>) empleadoRepository.findById(idEmpleado);
-    }    
+    }
 
     @GetMapping("/sort/{status}")
     public List<EmpleadoEntity> getDataByStatus(@PathVariable("status") Boolean status, Sort sort) {
         return (List<EmpleadoEntity>) empleadoService.getAllEmpleadosByStatus(status, sort);
+    }
+
+    @Transactional
+    @GetMapping("/prueba/sort/{idSubEmpresa}/{status}")
+    public List<EmpleadoEntity> byIdSubEmpresaAndStatus(@PathVariable("idSubEmpresa") Long idSubEmpresa, @PathVariable("status") Boolean status, Sort sort) {
+        return (List<EmpleadoEntity>) empleadoService.getAllEmpleadosByIdSubEmpresaAndStatus(idSubEmpresa, status, sort);
     }
 
     @PostMapping("/agregar")
@@ -54,19 +62,21 @@ public class EmpleadoController {
     }
 
     @PutMapping("/editar/{id}")
-    public ResponseEntity<EmpleadoEntity> updatingRegistro(@PathVariable("id") Long idEmpleado, @RequestBody EmpleadoEntity cEmpleado) {
+    public ResponseEntity<EmpleadoEntity> updatingRegistro(@PathVariable("id") Long idEmpleado,
+            @RequestBody EmpleadoEntity cEmpleado) {
         Optional<EmpleadoEntity> empleadoData = empleadoRepository.findById(idEmpleado);
 
         if (empleadoData.isPresent()) {
             EmpleadoEntity empleado = empleadoRepository.save(cEmpleado);
             return new ResponseEntity<>(empleado, HttpStatus.OK);
-        }else{
+        } else {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping("/updateStatus/{id}")
-    public ResponseEntity<EmpleadoEntity> updatingStatus(@PathVariable("id") Long idEmpleado, @RequestBody EmpleadoEntity cEmpleado) {
+    public ResponseEntity<EmpleadoEntity> updatingStatus(@PathVariable("id") Long idEmpleado,
+            @RequestBody EmpleadoEntity cEmpleado) {
         Optional<EmpleadoEntity> empleadoData = empleadoRepository.findById(idEmpleado);
 
         if (empleadoData.isPresent()) {

@@ -3,6 +3,7 @@ package com.example.catalogosDashboard.Entity.Empleado;
 import java.time.LocalDate;
 
 import com.example.catalogosDashboard.Entity.CFDI.c_Asentamientos;
+import com.example.catalogosDashboard.Entity.CFDI.c_CodigoPostal;
 import com.example.catalogosDashboard.Entity.CFDI.c_Estado;
 import com.example.catalogosDashboard.Entity.CFDI.c_Localidad;
 import com.example.catalogosDashboard.Entity.CFDI.c_Municipio;
@@ -38,27 +39,20 @@ public class EmpleadoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    @NonNull
     private String nombre;
     @Column
-    @NonNull
     private String paterno;
     @Column
-    @NonNull
     private String materno;
     @Column 
-    @NonNull
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaNacimiento;
     @Column
-    @NonNull
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate fechaContratacion;
     @Column
-    @NonNull
     private Double salarioDiario;
     @Column
-    @NonNull
     private Double salarioDiarioIntegrado;
     @Column
     private Long cuentaBanco;
@@ -80,54 +74,62 @@ public class EmpleadoEntity {
     private Boolean status;
 
     @ManyToOne
+    @JoinColumn(name = "idEstadoCivil")
+    private EstadoCivilEntity idEstadoCivil;
+
+    @ManyToOne
     @JoinColumn(name = "idTipoContrato")
-    private c_TipoContratoEntity tipoContratoEntity;
+    private c_TipoContratoEntity idTipoContrato;
 
     @ManyToOne
     @JoinColumn(name = "idTipoRegimen")
-    private c_TipoRegimenEntity tipoRegimenEntity;
+    private c_TipoRegimenEntity idTipoRegimen;
 
     @ManyToOne
     @JoinColumn(name = "idTipoJornada")
-    private c_TipoJornadaEntity tipoJornadaEntity;
+    private c_TipoJornadaEntity idTipoJornada;
 
     @ManyToOne
     @JoinColumn(name = "idBanco")
-    private c_BancoEntity bancoEntity;
+    private c_BancoEntity idBanco;
 
     @ManyToOne
     @JoinColumn(name = "idRiesgoPuesto")
-    private c_RiesgoPuestoEntity riesgoPuestoEntity;
+    private c_RiesgoPuestoEntity idRiesgoPuesto;
 
     @ManyToOne
     @JoinColumn(name = "idSubEmpresa")
-    private SubEmpresasEntity subEmpresasEntity;
+    private SubEmpresasEntity idSubEmpresa;
 
     @ManyToOne
     @JoinColumn(name = "idPuesto")
-    private PuestoEntity puestoEntity;
+    private PuestoEntity idPuesto;
 
     @ManyToOne 
     @JoinColumn(name = "idDepartamento")
-    private DepartamentoEntity departamentoEntity;
+    private DepartamentoEntity idDepartamento;
 
     @ManyToOne
     @JoinColumn(name = "idSindicato")
-    private SindicatoEntity sindicatoEntity;
+    private SindicatoEntity idSindicato;
 
     @ManyToOne
     @JoinColumn(name = "idEstado")
-    private c_Estado estadoEntity;
+    private c_Estado idEstado;
 
     @ManyToOne
     @JoinColumn(name = "idMunicipio")
-    private c_Municipio municipioEntity;
+    private c_Municipio idMunicipio;
 
     @ManyToOne
     @JoinColumn(name = "idLocalidad")
-    private c_Localidad localidadEntity;
+    private c_Localidad idLocalidad;
 
     @ManyToOne
     @JoinColumn(name = "idAsentamientos")
-    private c_Asentamientos asentamientosEntity;
+    private c_Asentamientos idAsentamientos; 
+    
+    @ManyToOne
+    @JoinColumn(name = "idCodigoPostal")
+    private c_CodigoPostal idCodigoPostal;
 }

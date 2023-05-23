@@ -31,15 +31,15 @@ public class c_CodigoPostal {
     
     @ManyToOne
     @JoinColumn(name="idEstado")
-    private c_Estado estado;
+    private c_Estado idEstado;
 
     @ManyToOne
     @JoinColumn(name="idMunicipio")
-    private c_Municipio municipios;
+    private c_Municipio idMunicipio;
 
     @ManyToOne
     @JoinColumn(name="idLocalidad")
-    private c_Localidad localidades;
+    private c_Localidad idLocalidad;
 
     /* @OneToMany(mappedBy = "idAsentamiento")
     private List<c_Asentamientos> asentamientos; */
