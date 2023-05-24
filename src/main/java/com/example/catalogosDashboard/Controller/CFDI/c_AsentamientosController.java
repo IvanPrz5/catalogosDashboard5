@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.catalogosDashboard.Entity.CFDI.c_Asentamientos;
 import com.example.catalogosDashboard.Repository.CFDI.c_AsentamientosRepository;
+import com.example.catalogosDashboard.Repository.Usuarios.UsuariosRepository;
 import com.example.catalogosDashboard.Service.CFDI.c_AsentamientosService;
 
 import jakarta.transaction.Transactional;
@@ -38,6 +40,20 @@ public class c_AsentamientosController {
 
     @Autowired
     private c_AsentamientosService asentamientosService;
+
+    @GetMapping("/page")
+    public Page<c_Asentamientos> prueba(){
+         final Pageable pageable = PageRequest.of(0, 200);
+        // sort = Sort.by("id");
+        return asentamientosRepository.findAll(pageable);
+    }
+
+    @GetMapping("/pagea")
+    public Page<c_Asentamientos> prueba(@PageableDefault(page = 0) Pageable pageable, Sort sort){
+        // final Pageable pageable = PageRequest.of(0, 200);
+        sort = Sort.by("id");
+        return asentamientosRepository.findAll(pageable);
+    }
 
     @GetMapping(value = "/{id}")
     public Optional<c_Asentamientos> data(@PathVariable("id") String id) {
