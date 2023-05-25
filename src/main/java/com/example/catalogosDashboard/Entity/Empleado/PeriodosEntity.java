@@ -2,6 +2,9 @@ package com.example.catalogosDashboard.Entity.Empleado;
 
 import java.time.LocalDate;
 
+import com.example.catalogosDashboard.Entity.CFDI.c_Periodicidad;
+import com.example.catalogosDashboard.Entity.Nomina.c_OrigenRecursoEntity;
+import com.example.catalogosDashboard.Entity.Nomina.c_TipoNominaEntity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
@@ -30,8 +33,6 @@ public class PeriodosEntity {
     @Column
     private String nombre;
     @Column
-    private Long satPeriodicidad;
-    @Column
     private Double diasPagados;
     @Column
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -43,10 +44,6 @@ public class PeriodosEntity {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate pago;
     @Column
-    private String satTipoNomina;
-    @Column
-    private String satOrigenRecurso;
-    @Column
     private String porcentajePropio;
     @Column
     private Boolean aguinaldo;
@@ -55,5 +52,17 @@ public class PeriodosEntity {
 
     @ManyToOne
     @JoinColumn(name = "idSubEmpresa")
-    private SubEmpresasEntity subEmpresasEntity;
+    private SubEmpresasEntity idSubEmpresa;
+
+    @ManyToOne
+    @JoinColumn(name = "idPeriodicidad")
+    private c_Periodicidad idPeriodicidad;
+
+    @ManyToOne
+    @JoinColumn(name = "idTipoNomina")
+    private c_TipoNominaEntity idTipoNomina;
+    
+    @ManyToOne
+    @JoinColumn(name = "idOrigenRecurso")
+    private c_OrigenRecursoEntity idOrigenRecurso;
 }

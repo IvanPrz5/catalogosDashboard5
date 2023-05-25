@@ -49,7 +49,7 @@ public class c_AsentamientosController {
     }
 
     @GetMapping("/pagea")
-    public Page<c_Asentamientos> prueba(@PageableDefault(page = 0) Pageable pageable, Sort sort){
+    public Page<c_Asentamientos> prueba(Pageable pageable, Sort sort){
         // final Pageable pageable = PageRequest.of(0, 200);
         sort = Sort.by("id");
         return asentamientosRepository.findAll(pageable);
