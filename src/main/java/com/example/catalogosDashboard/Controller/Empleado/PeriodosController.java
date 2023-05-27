@@ -1,5 +1,6 @@
 package com.example.catalogosDashboard.Controller.Empleado;
 
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.catalogosDashboard.Entity.Empleado.PeriodosEntity;
 import com.example.catalogosDashboard.Repository.Empleado.PeriodosRepository;
 import com.example.catalogosDashboard.Service.Empleado.PeriodosService;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +35,32 @@ public class PeriodosController {
 
     @Autowired
     PeriodosService periodosService;
+
+    @Transactional
+    @GetMapping("/byYear/{id}")
+    public List<String> byIdSubEmpresa(@PathVariable("id") Long id){
+        return (List<String>) periodosService.getByIdSubEmpresa(id);
+    }
+
+    @Transactional
+    @GetMapping("/byMonth/{year}/{id}")
+    public ResponseEntity<List<String>> byIdSubEmpresaAndYear(@PathVariable("id") Long id, @PathVariable("year") String year){
+        try {
+            return new ResponseEntity<>(periodosService.getByIdSubEmpresaAndYear(id, year), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @Transactional
+    @GetMapping("/byYearMonthIdSE/{year}/{month}/{id}")
+    public ResponseEntity<List<PeriodosEntity>> byIdSubEmpresaAndYearAndIdSubEmpresa(@PathVariable("year") String year, @PathVariable("month") String month, @PathVariable("id") Long id){
+        try {
+            return new ResponseEntity<>(periodosService.getByYearAndMonthAndIdSubEmpresa(year, month, id), HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+    }
 
     @GetMapping("/sort/{status}")
     public List<PeriodosEntity> getDataByStatus(@PathVariable("status") Boolean status, Sort sort){
